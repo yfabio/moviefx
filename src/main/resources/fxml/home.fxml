@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<StackPane prefHeight="400.0" prefWidth="600.0"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.pro.moviefx.controller.HomeController">
+	<children>
+		<BorderPane>
+			<left>
+				<VBox spacing="5.0" styleClass="side-panel"
+					BorderPane.alignment="CENTER">
+					<children>
+						<Text strokeType="OUTSIDE" strokeWidth="0.0"
+							styleClass="side-panel-title" text="Popular Movies" />
+						<Accordion>
+							<panes>
+								<TitledPane text="Sort">
+									<content>
+										<AnchorPane>
+											<children>
+												<VBox layoutX="39.0" layoutY="-10.0" spacing="5.0"
+													AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+													<children>
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Text" />
+														<AnchorPane>
+															<children>
+																<ComboBox AnchorPane.bottomAnchor="0.0"
+																	AnchorPane.leftAnchor="0.0"
+																	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+															</children>
+														</AnchorPane>
+													</children>
+													<padding>
+														<Insets bottom="5.0" left="5.0" right="5.0"
+															top="5.0" />
+													</padding>
+												</VBox>
+											</children>
+										</AnchorPane>
+									</content>
+								</TitledPane>
+							</panes>
+						</Accordion>
+						<Accordion>
+							<panes>
+								<TitledPane text="Where To Watch">
+									<content>
+										<AnchorPane>
+											<children>
+												<VBox layoutX="49.0" layoutY="-10.0" spacing="5.0"
+													AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+													<children>
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="My Services" />
+														<CheckBox mnemonicParsing="false"
+															text="Restrict searches to my subscribed services?"
+															wrapText="true" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Country" />
+														<AnchorPane>
+															<children>
+																<ComboBox AnchorPane.bottomAnchor="0.0"
+																	AnchorPane.leftAnchor="0.0"
+																	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+															</children>
+														</AnchorPane>
+														<FlowPane />
+													</children>
+													<padding>
+														<Insets bottom="5.0" left="5.0" right="5.0"
+															top="5.0" />
+													</padding>
+												</VBox>
+											</children>
+										</AnchorPane>
+									</content>
+								</TitledPane>
+							</panes>
+						</Accordion>
+						<Accordion fx:id="accordionFilter">
+							<panes>
+								<TitledPane fx:id="titlePaneFilter" prefWidth="250.0"
+									text="Filters">
+									<content>
+										<ScrollPane fitToHeight="true" fitToWidth="true">
+											<content>
+												<VBox spacing="5.0">
+													<children>
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Show me" />
+														<RadioButton mnemonicParsing="false"
+															text="Everything" />
+														<RadioButton mnemonicParsing="false"
+															text="Movies I Haven't Seen" />
+														<RadioButton mnemonicParsing="false"
+															text="Movies I Have Seen" />
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Availabilities " />
+														<Accordion prefHeight="167.0" prefWidth="259.0">
+															<panes>
+																<TitledPane animated="false"
+																	text="Search all availabilities?">
+																	<content>
+																		<AnchorPane>
+																			<children>
+																				<VBox layoutX="33.0" layoutY="2.0">
+																					<children>
+																						<CheckBox mnemonicParsing="false"
+																							text="Stream" />
+																						<CheckBox mnemonicParsing="false"
+																							text="Free" />
+																						<CheckBox mnemonicParsing="false"
+																							text="Ads" />
+																						<CheckBox mnemonicParsing="false"
+																							text="Rent" />
+																						<CheckBox mnemonicParsing="false"
+																							text="Buy" />
+																					</children>
+																				</VBox>
+																			</children>
+																		</AnchorPane>
+																	</content>
+																</TitledPane>
+															</panes>
+														</Accordion>
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Release Dates " />
+														<CheckBox mnemonicParsing="false"
+															text="Search all releases?" />
+														<GridPane hgap="5.0" vgap="5.0">
+															<columnConstraints>
+																<ColumnConstraints hgrow="SOMETIMES" />
+																<ColumnConstraints hgrow="SOMETIMES" />
+															</columnConstraints>
+															<rowConstraints>
+																<RowConstraints vgrow="SOMETIMES" />
+																<RowConstraints vgrow="SOMETIMES" />
+															</rowConstraints>
+															<children>
+																<AnchorPane>
+																	<children>
+																		<Text layoutX="36.0" layoutY="57.0"
+																			strokeType="OUTSIDE" strokeWidth="0.0" text="From"
+																			AnchorPane.bottomAnchor="0.0"
+																			AnchorPane.leftAnchor="0.0"
+																			AnchorPane.rightAnchor="0.0"
+																			AnchorPane.topAnchor="0.0" />
+																	</children>
+																</AnchorPane>
+																<AnchorPane GridPane.rowIndex="1">
+																	<children>
+																		<Text layoutX="36.0" layoutY="36.0"
+																			strokeType="OUTSIDE" strokeWidth="0.0" text="To"
+																			AnchorPane.bottomAnchor="0.0"
+																			AnchorPane.leftAnchor="0.0"
+																			AnchorPane.rightAnchor="0.0"
+																			AnchorPane.topAnchor="0.0" />
+																	</children>
+																</AnchorPane>
+																<AnchorPane GridPane.columnIndex="1">
+																	<children>
+																		<DatePicker layoutY="-2.0"
+																			prefHeight="30.0" prefWidth="209.0"
+																			AnchorPane.bottomAnchor="0.0"
+																			AnchorPane.leftAnchor="0.0"
+																			AnchorPane.rightAnchor="0.0"
+																			AnchorPane.topAnchor="0.0" />
+																	</children>
+																</AnchorPane>
+																<AnchorPane GridPane.columnIndex="1"
+																	GridPane.rowIndex="1">
+																	<children>
+																		<DatePicker layoutX="-16.0" layoutY="-2.0"
+																			prefHeight="30.0" prefWidth="193.0"
+																			AnchorPane.bottomAnchor="0.0"
+																			AnchorPane.leftAnchor="0.0"
+																			AnchorPane.rightAnchor="0.0"
+																			AnchorPane.topAnchor="0.0" />
+																	</children>
+																</AnchorPane>
+															</children>
+														</GridPane>
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Genres" />
+														<FlowPane hgap="5.0" vgap="5.0">
+															<children>
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Action" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Adventure" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Animation" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Comedy" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Crime" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Documentary" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Drama" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Family" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Fantasy" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="History" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Horror" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Music" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Mistery" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Romance" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Science Fiction" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Tv Movie" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Thriller" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="War" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="Western" />
+															</children>
+														</FlowPane>
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Certification" />
+														<FlowPane hgap="5.0" vgap="5.0">
+															<children>
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="L" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="10" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="12" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="14" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="16" />
+																<ToggleButton mnemonicParsing="false"
+																	styleClass="side-round-button" text="18" />
+															</children>
+														</FlowPane>
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Language" />
+														<AnchorPane>
+															<children>
+																<ComboBox AnchorPane.bottomAnchor="0.0"
+																	AnchorPane.leftAnchor="0.0"
+																	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+															</children>
+														</AnchorPane>
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="User Score " />
+														<Slider blockIncrement="1.0" majorTickUnit="5.0"
+															max="10.0" showTickLabels="true" showTickMarks="true"
+															snapToTicks="true" />
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Minimum User Votes " />
+														<Slider majorTickUnit="250.0" max="500.0"
+															showTickLabels="true" showTickMarks="true" />
+														<Separator prefWidth="200.0" />
+														<Text strokeType="OUTSIDE" strokeWidth="0.0"
+															text="Runtime " />
+														<Slider majorTickUnit="180.0" max="360.0"
+															showTickLabels="true" showTickMarks="true" />
+														<Separator prefWidth="200.0" />
+														<VBox spacing="5.0">
+															<children>
+																<Text strokeType="OUTSIDE" strokeWidth="0.0"
+																	text="Keywords " />
+																<TextField promptText="Filter by keywords... " />
+															</children>
+															<padding>
+																<Insets bottom="5.0" left="5.0" right="5.0"
+																	top="5.0" />
+															</padding>
+														</VBox>
+														<AnchorPane>
+															<children>
+																<Button mnemonicParsing="false" prefHeight="32.0"
+																	prefWidth="240.0" text="Search"
+																	AnchorPane.bottomAnchor="0.0"
+																	AnchorPane.leftAnchor="0.0"
+																	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+															</children>
+														</AnchorPane>
+													</children>
+													<padding>
+														<Insets bottom="5.0" left="5.0" right="5.0"
+															top="5.0" />
+													</padding>
+												</VBox>
+											</content>
+										</ScrollPane>
+									</content>
+								</TitledPane>
+							</panes>
+						</Accordion>
+					</children>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</VBox>
+			</left>
+			<center>
+				<BorderPane BorderPane.alignment="CENTER">
+					<center>
+						<ScrollPane fitToHeight="true" fitToWidth="true"
+							BorderPane.alignment="CENTER">
+							<content>
+								<FlowPane fx:id="flowpane" />
+							</content>
+							<BorderPane.margin>
+								<Insets bottom="20.0" />
+							</BorderPane.margin>
+						</ScrollPane>
+					</center>
+					<bottom>
+						<AnchorPane BorderPane.alignment="CENTER">
+							<children>
+								<Button fx:id="loadmore" layoutX="248.0" layoutY="135.0"
+									mnemonicParsing="false" styleClass="load-button"
+									text="Load More" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0" />
+							</children>
+						</AnchorPane>
+					</bottom>
+				</BorderPane>
+			</center>
+		</BorderPane>
+	</children>
+	<padding>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	</padding>
+</StackPane>

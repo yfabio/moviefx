@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.pro.moviefx.controller.TvController">
+	<children>
+		<BorderPane>
+			<top>
+				<HBox alignment="CENTER" styleClass="movie-menu"
+					BorderPane.alignment="CENTER">
+					<children>
+						<ToggleButton mnemonicParsing="false"
+							styleClass="movie-menu-buttons" text="Overview">
+							<graphic>
+								<FontAwesomeIconView glyphName="CARET_DOWN"
+									size="14" />
+							</graphic>
+						</ToggleButton>
+						<ToggleButton mnemonicParsing="false"
+							styleClass="movie-menu-buttons" text="Media">
+							<graphic>
+								<FontAwesomeIconView glyphName="CARET_DOWN"
+									size="14" />
+							</graphic>
+						</ToggleButton>
+						<ToggleButton mnemonicParsing="false"
+							styleClass="movie-menu-buttons" text="Fandom">
+							<graphic>
+								<FontAwesomeIconView glyphName="CARET_DOWN"
+									size="14" />
+							</graphic>
+						</ToggleButton>
+						<ToggleButton mnemonicParsing="false"
+							styleClass="movie-menu-buttons" text="Share">
+							<graphic>
+								<FontAwesomeIconView glyphName="CARET_DOWN"
+									size="14" />
+							</graphic>
+						</ToggleButton>
+					</children>
+				</HBox>
+			</top>
+			<center>
+				<StackPane fx:id="movieBackdropImage"
+					BorderPane.alignment="CENTER">
+					<children>
+						<Pane prefHeight="200.0" prefWidth="200.0"
+							styleClass="movie-backdrop" />
+						<HBox styleClass="movie-content">
+							<children>
+								<VBox styleClass="movie-panel-l">
+									<children>
+										<StackPane styleClass="movie-card">
+											<children>
+												<VBox styleClass="movie-card-image">
+													<children>
+														<ImageView fx:id="movieImage" fitHeight="500.0"
+															fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+															<image>
+																<Image
+																	url="@../../../../../../../../Downloads/fastx-w780.jpeg" />
+															</image>
+														</ImageView>
+													</children>
+												</VBox>
+											</children>
+										</StackPane>
+									</children>
+								</VBox>
+								<VBox styleClass="movie-panel-r">
+									<children>
+										<HBox alignment="CENTER_LEFT" styleClass="spacing-10">
+											<children>
+												<Label fx:id="movieName"
+													styleClass="movie-panel-l-name" text="Fast X" />
+												<Label fx:id="movieYear"
+													styleClass="movie-panel-l-year" text="(2023)" />
+											</children>
+										</HBox>
+										<HBox alignment="CENTER_LEFT" styleClass="spacing-10">
+											<children>
+												<Label fx:id="movieDateLang" text="2023-05-18 BR" />
+												<Label fx:id="genres" text="Action, Crime, Thriller" />
+											</children>
+										</HBox>
+										<HBox alignment="CENTER_LEFT" maxHeight="70.0"
+											styleClass="spacing-10">
+											<children>
+												<StackPane>
+													<children>
+														<Circle fx:id="movieCircle" radius="35.0"
+															strokeType="INSIDE" strokeWidth="2.0">
+															<styleClass>
+																<String fx:value="progress-circle-green-5" />
+																<String fx:value="progress-circle" />
+															</styleClass>
+														</Circle>
+														<Arc fx:id="moviePercent" length="90.0" radiusX="35.0"
+															radiusY="35.0" scaleZ="0.0" strokeType="INSIDE"
+															strokeWidth="3.0" StackPane.alignment="TOP_RIGHT">
+															<styleClass>
+																<String fx:value="progress-percent-green" />
+																<String fx:value="progress-percent" />
+															</styleClass>
+														</Arc>
+														<Label fx:id="moviePercentText" alignment="CENTER"
+															styleClass="movie-percent-text" text="20%">
+															<font>
+																<Font size="18.0" />
+															</font>
+														</Label>
+													</children>
+												</StackPane>
+												<Label text="User Score" wrapText="true" />
+												<Button mnemonicParsing="false">
+													<graphic>
+														<FontAwesomeIconView glyphName="LIST" />
+													</graphic>
+													<styleClass>
+														<String fx:value="movie-panel-l-buttons" />
+														<String fx:value="movie-panel-l-button" />
+													</styleClass>
+												</Button>
+												<Button mnemonicParsing="false">
+													<graphic>
+														<FontAwesomeIconView glyphName="HEART" />
+													</graphic>
+													<styleClass>
+														<String fx:value="movie-panel-l-buttons" />
+														<String fx:value="movie-panel-l-button" />
+													</styleClass>
+												</Button>
+												<Button mnemonicParsing="false">
+													<graphic>
+														<FontAwesomeIconView
+															glyphName="BOOKMARK" />
+													</graphic>
+													<styleClass>
+														<String fx:value="movie-panel-l-buttons" />
+														<String fx:value="movie-panel-l-button" />
+													</styleClass>
+												</Button>
+												<Button mnemonicParsing="false">
+													<graphic>
+														<FontAwesomeIconView glyphName="STAR" />
+													</graphic>
+													<styleClass>
+														<String fx:value="movie-panel-l-buttons" />
+														<String fx:value="movie-panel-l-button" />
+													</styleClass>
+												</Button>
+												<Button mnemonicParsing="false" text="Play Trailler">
+													<graphic>
+														<FontAwesomeIconView glyphName="PLAY" />
+													</graphic>
+													<styleClass>
+														<String fx:value="movie-panel-l-buttons" />
+														<String fx:value="movie-panel-l-play-trailer:hover" />
+													</styleClass>
+												</Button>
+											</children>
+										</HBox>
+										<AnchorPane>
+											<children>
+												<Label fx:id="tagline" layoutX="108.0" layoutY="47.0"
+													styleClass="movie-panel-l-tagline"
+													text="The end of the road begins."
+													AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+											</children>
+										</AnchorPane>
+										<VBox styleClass="spacing-10">
+											<children>
+												<Label styleClass="movie-panel-l-overview"
+													text="Overview" />
+												<Label fx:id="overview"
+													text="Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever."
+													wrapText="true" />
+											</children>
+										</VBox>
+									</children>
+								</VBox>
+							</children>
+						</HBox>
+					</children>
+				</StackPane>
+			</center>
+		</BorderPane>
+	</children>
+</StackPane>

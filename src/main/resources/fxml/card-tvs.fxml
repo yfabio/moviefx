@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="card" prefWidth="220.0" styleClass="card"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.pro.moviefx.controller.TvCardController">
+	<children>
+		<VBox styleClass="card-image">
+			<children>
+				<ImageView fx:id="cardImage" fitHeight="330.0"
+					fitWidth="220.0" pickOnBounds="true" preserveRatio="true">					
+				</ImageView>
+			</children>
+		</VBox>
+		<VBox>
+			<children>
+				<VBox styleClass="card-content">
+					<children>
+						<HBox>
+							<children>
+								<StackPane>
+									<children>
+										<Circle fx:id="movieCircle" radius="25.0"
+											strokeType="INSIDE" strokeWidth="2.0">
+											<styleClass>
+												<String fx:value="progress-circle-green-5" />
+												<String fx:value="progress-circle" />
+											</styleClass>
+										</Circle>
+										<Arc fx:id="moviePercent" length="90.0" radiusX="25.0"
+											radiusY="25.0" scaleZ="0.0" strokeType="INSIDE"
+											strokeWidth="3.0" StackPane.alignment="TOP_RIGHT">
+											<styleClass>
+												<String fx:value="progress-percent-green" />
+												<String fx:value="progress-percent" />
+											</styleClass>
+										</Arc>
+										<Label fx:id="cardPercentText" alignment="CENTER"
+											styleClass="card-percent-text" text="20%">
+											<font>
+												<Font size="18.0" />
+											</font>
+										</Label>
+									</children>
+								</StackPane>
+							</children>
+						</HBox>
+						<Label fx:id="cardName" styleClass="card-content-name"
+							text="Fast X" wrapText="true" />
+						<Label fx:id="cardDate" styleClass="card-content-date"
+							text="May 17, 2023" />
+					</children>
+				</VBox>
+			</children>
+		</VBox>
+	</children>
+</VBox>

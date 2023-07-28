@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pro.tmdb</groupId>
+	<artifactId>moviefx</artifactId>
+	<version>1.0</version>
+
+	<properties>
+		<javafx.version>17.0.2</javafx.version>
+		<spring.version>6.0.8</spring.version>
+		<fontawesomefx>4.7.0-9.1.2</fontawesomefx>
+		<sqlite>3.41.2.1</sqlite>
+		<fxcontrols>11.1.2</fxcontrols>
+		<validatorfx>0.4.2</validatorfx>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+	</properties>
+
+
+	<dependencies>
+
+
+
+
+
+
+
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx-fontawesome</artifactId>
+			<version>${fontawesomefx}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>${fxcontrols}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.synedra</groupId>
+			<artifactId>validatorfx</artifactId>
+			<version>${validatorfx}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+</project>
