@@ -6,7 +6,6 @@
 
 	<properties>
 		<javafx.version>17.0.2</javafx.version>
-		<spring.version>6.0.8</spring.version>
 		<fontawesomefx>4.7.0-9.1.2</fontawesomefx>
 		<sqlite>3.41.2.1</sqlite>
 		<fxcontrols>11.1.2</fxcontrols>
@@ -17,13 +16,6 @@
 
 
 	<dependencies>
-
-
-
-
-
-
-
 
 		<dependency>
 			<groupId>org.openjfx</groupId>
