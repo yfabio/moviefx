@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
 
 public class BaseController implements Initializable  {
 
-	protected String[] headers = {"Content-Type","application/json","Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MTIzODRlOTE1ZThlZjU1ODdmNWQ3MWY0M2EwMTVlZiIsInN1YiI6IjYwMGUxZmNjZDU1YzNkMDAzZDcwNDMwYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hf-RbtGDC_vUZ7OMHZrYyJKbFUi2bAZs4YquTdPjCUI"};
+	protected String[] headers = {"Content-Type","application/json","Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNjY4MWYxMDgwNTM3YTI1ZTZiNGY4NjEzMDY3ZTA5ZSIsInN1YiI6IjYwMGUxZmNjZDU1YzNkMDAzZDcwNDMwYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L5NB1CY3MVUH1SPdovn3wxuyyrYIO3yE0r_korXFucw"};
 	
 	protected static final ObjectProperty<Navigator> navigation = new SimpleObjectProperty<Navigator>();
 
