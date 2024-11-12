@@ -59,7 +59,7 @@ public class TvController extends BaseController implements CallbackController<T
 	private Label tagline;
 
 	@Override
-	public void publish(Tv value) {
+	public void accept(Tv value) {
 			
 		new Thread(new TaskBuilder<Background>()
 				.call(() ->  {

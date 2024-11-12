@@ -1,12 +1,13 @@
 package com.pro.moviefx.service;
 
-import java.util.function.Supplier;
-
-import com.pro.moviefx.controller.BaseController;
+import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.navigation.Navigator;
+
+import javafx.stage.Stage;
 
 
 public interface NavigationService {
-	public <T> Navigator getNavigator(Class<? extends BaseController> controller,Supplier<T> obj);
-	public <T> Navigator getNavigator(Class<? extends BaseController> controller);
+	public <T> Navigator getNavigator(Stage stage,Url url, T obj); 
+	public <T> Navigator getNavigator(Url url, T obj);
+	public <T> Navigator getNavigator(Url url);
 }

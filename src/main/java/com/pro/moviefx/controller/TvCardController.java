@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.pro.moviefx.api.Tv;
 import com.pro.moviefx.fx.CallbackController;
+import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
 import com.pro.moviefx.service.NavigationService;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
@@ -56,7 +57,7 @@ public class TvCardController extends BaseController  implements CallbackControl
 	}
 
 	@Override
-	public void publish(Tv value) {	
+	public void accept(Tv value) {	
 		try {
 								
 			new Thread(new TaskBuilder<Image>()	
@@ -119,7 +120,7 @@ public class TvCardController extends BaseController  implements CallbackControl
 					return gson.fromJson(json, Tv.class);					
 				})
 				.succeeded(tv -> {									
-					navigation.set(navigationService.getNavigator(TvController.class,() -> tv));					
+					navigation.set(navigationService.getNavigator(Url.TV,tv));					
 				}).build()).start();
 			
 	}

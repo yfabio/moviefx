@@ -14,8 +14,10 @@ import com.pro.moviefx.api.Tv;
 import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.FxLoader;
-import com.pro.moviefx.fx.FxLoader.Url;
+import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
+import com.pro.moviefx.service.NavigationService;
+import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.task.TaskBuilder;
 
 import javafx.fxml.FXML;
@@ -38,6 +40,8 @@ public class HomeController extends BaseController implements CallbackController
 
 	@FXML
 	private Accordion accordionFilter;
+	
+	private NavigationService navigate = new NavigationServiceImpl();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -93,7 +97,7 @@ public class HomeController extends BaseController implements CallbackController
 			List<Movie> listMovies = movies.getResults();
 
 			for (Movie movie : listMovies) {
-				Pane pane = FxLoader.load(Url.CARD_MOVIES, () -> movie).navigate();
+				Pane pane = navigate.getNavigator(Url.CARD_MOVIES,movie).navigate();
 				list.add(pane);
 			}
 
@@ -117,7 +121,7 @@ public class HomeController extends BaseController implements CallbackController
 			List<Tv> tvList = tvs.getResults();
 
 			for (Tv tv : tvList) {
-				Pane pane = FxLoader.load(Url.CARD_TVS, () -> tv).navigate();
+				Pane pane = navigate.getNavigator(Url.CARD_TVS,tv).navigate();
 				list.add(pane);
 			}
 
@@ -129,7 +133,7 @@ public class HomeController extends BaseController implements CallbackController
 	}
 
 	@Override
-	public void publish(List<? extends Media> value) {
+	public void accept(List<? extends Media> value) {
 
 		new Thread(new TaskBuilder<List<Node>>().scheduled(() -> {
 			flowpane.getChildren().clear();
@@ -140,10 +144,11 @@ public class HomeController extends BaseController implements CallbackController
 			List<Node> list = new ArrayList<>();
 			for (Media common : value) {
 				if (common instanceof Movie) {
-					Pane pane = FxLoader.load(Url.CARD_MOVIES, () -> Movie.class.cast(common)).navigate();
+					Pane pane = navigate.getNavigator(Url.CARD_MOVIES, Movie.class.cast(common)).navigate();
+					
 					list.add(pane);
 				} else if (common instanceof Tv) {
-					Pane pane = FxLoader.load(Url.CARD_TVS, () -> Tv.class.cast(common)).navigate();
+					Pane pane = navigate.getNavigator(Url.CARD_TVS,Tv.class.cast(common)).navigate();
 					list.add(pane);
 				}
 			}

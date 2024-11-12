@@ -63,7 +63,7 @@ public class MovieController extends BaseController implements CallbackControlle
 	private Label tagline;
 
 	@Override
-	public void publish(Movie value) {
+	public void accept(Movie value) {
 			
 		new Thread(new TaskBuilder<Background>()
 				.call(() ->  {

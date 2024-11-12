@@ -8,6 +8,7 @@ import com.pro.moviefx.api.Movie;
 import com.pro.moviefx.api.Tv;
 import com.pro.moviefx.fx.ContextMenuBuilder;
 import com.pro.moviefx.fx.PlaceHolder;
+import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.service.NavigationService;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 
@@ -61,9 +62,9 @@ public class MainController extends BaseController  {
 
 		placeholder.getNavigation().bindBidirectional(navigation);
 		
-		navigation.set(navigationService.getNavigator(HomeController.class));
+		navigation.set(navigationService.getNavigator(Url.HOME));
 		
-		logo.setOnMouseClicked(evt -> navigation.setValue(navigationService.getNavigator(HomeController.class)));
+		logo.setOnMouseClicked(evt -> navigation.setValue(navigationService.getNavigator(Url.HOME)));
 
 		btnMovies.setOnMouseEntered(evt -> onShowMoviesContextMenu(evt));
 		btnTvShows.setOnMouseEntered(evt -> onShowTvShowsContexMenu(evt));
@@ -77,16 +78,16 @@ public class MainController extends BaseController  {
 	private void onShowMoviesContextMenu(MouseEvent evt) {
 		new ContextMenuBuilder(Button.class.cast(evt.getSource()))
 		.addMenuItem("Popular","https://api.themoviedb.org/3/movie/popular",headers,Movie.class, items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME,items));
 			whichDoILoadMore.add("movies");
 		}).addMenuItem("Now Playing","https://api.themoviedb.org/3/movie/now_playing", headers,Movie.class,items -> {				
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));		
+			navigation.set(navigationService.getNavigator(Url.HOME,items));		
 			whichDoILoadMore.add("movies");
 		}).addMenuItem("Upcoming","https://api.themoviedb.org/3/movie/upcoming", headers,Movie.class, items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME, items));
 			whichDoILoadMore.add("movies");
 		}).addMenuItem("Top Rated","https://api.themoviedb.org/3/movie/top_rated", headers,Movie.class, items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME, items));
 			whichDoILoadMore.add("movies");
 		}).closeContextMenu(this::hideContexMenuIfItWasShowing)		
 		.show();
@@ -96,16 +97,16 @@ public class MainController extends BaseController  {
 	private void onShowTvShowsContexMenu(MouseEvent evt) {
 		new ContextMenuBuilder(Button.class.cast(evt.getSource()))
 		.addMenuItem("Popular","https://api.themoviedb.org/3/tv/popular", headers, Tv.class,items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME, items));
 			whichDoILoadMore.add("tvShow");
 		}).addMenuItem("Airing","https://api.themoviedb.org/3/tv/airing_today", headers, Tv.class,items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME,items));
 			whichDoILoadMore.add("tvShow");
 		}).addMenuItem("On Tv","https://api.themoviedb.org/3/tv/on_the_air", headers, Tv.class,items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME, items));
 			whichDoILoadMore.add("tvShow");
 		}).addMenuItem("Top Rated","https://api.themoviedb.org/3/tv/top_rated", headers, Tv.class,items -> {
-			navigation.set(navigationService.getNavigator(HomeController.class, () -> items));
+			navigation.set(navigationService.getNavigator(Url.HOME,  items));
 			whichDoILoadMore.add("tvShow");
 		}).closeContextMenu(this::hideContexMenuIfItWasShowing)	
 		.show();
