@@ -61,7 +61,7 @@ public class MovieCardController extends BaseController  implements CallbackCont
 		try {
 								
 			new Thread(new TaskBuilder<Image>()	
-					.scheduled(() -> {
+					.scheduled(() -> {												
 						card.setOnMouseClicked(evt -> onMovieSelected(value.getId()));						
 					})
 					.call(() -> new Image("https://image.tmdb.org/t/p/w300/".concat(value.getPoster_path())))
