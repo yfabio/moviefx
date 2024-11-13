@@ -13,7 +13,6 @@ import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.Tv;
 import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.CallbackController;
-import com.pro.moviefx.fx.FxLoader;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
 import com.pro.moviefx.service.NavigationService;
@@ -41,6 +40,7 @@ public class HomeController extends BaseController implements CallbackController
 	@FXML
 	private Accordion accordionFilter;
 	
+		
 	private NavigationService navigate = new NavigationServiceImpl();
 
 	@Override
@@ -51,8 +51,8 @@ public class HomeController extends BaseController implements CallbackController
 		new Thread(new TaskBuilder<List<Node>>().call(() -> {
 			String json = Http.get("https://api.themoviedb.org/3/movie/popular?page=%d".formatted(nextInt.get()),
 					BodyHandlers.ofString(), headers);
-			return getMoviesCards(json);
-		}).succeeded(cards -> {
+			return getMoviesCards(json);					
+		}).succeeded(cards -> {			
 			flowpane.getChildren().addAll(cards);
 		}).build()).start();
 

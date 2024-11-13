@@ -62,7 +62,7 @@ public class TaskBuilder<T> implements Builder<T> {
 				if(error != null) {
 				  error.accept(ex);
 				}
-			}			
+			}				
 			
 		};
 		return task;
