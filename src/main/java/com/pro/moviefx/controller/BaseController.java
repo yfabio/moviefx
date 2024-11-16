@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -17,57 +16,52 @@ import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
-public class BaseController implements Initializable  {
-	
+public class BaseController implements Initializable {
+
 	protected static final ObjectProperty<Navigator> navigation = new SimpleObjectProperty<Navigator>();
 
-	protected static AtomicInteger nextInt = new AtomicInteger(1);
-		
 	private static Set<Stage> set = new HashSet<>();
-	
+
 	public class Job<T> extends Task<T> {
-		
+
 		private Supplier<T> provider;
 		private Runnable scheduled;
 		private Consumer<T> succeeded;
-		
+
 		public Job(Supplier<T> provider, Runnable scheduled, Consumer<T> succeeded) {
 			this.provider = provider;
 			this.scheduled = scheduled;
 			this.succeeded = succeeded;
 		}
-		
-		
+
 		public Job(Supplier<T> provider, Runnable scheduled) {
 			this.provider = provider;
 			this.scheduled = scheduled;
 		}
 
-
 		@Override
-		protected T call() throws Exception {			
-			return provider.get();			
+		protected T call() throws Exception {
+			return provider.get();
 		}
 
 		@Override
 		protected void scheduled() {
-			if(scheduled!=null) {
-				scheduled.run();				
+			if (scheduled != null) {
+				scheduled.run();
 			}
 		}
 
 		@Override
 		protected void succeeded() {
-			if(succeeded!=null) {
-				succeeded.accept(getValue());				
-			}			
+			if (succeeded != null) {
+				succeeded.accept(getValue());
+			}
 		}
-				
+
 	}
-	
-	
+
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {		
+	public void initialize(URL location, ResourceBundle resources) {
 	}
 
 	public Stage getStage() {
@@ -78,19 +72,18 @@ public class BaseController implements Initializable  {
 		set.add(stage);
 	}
 
-	protected <T> void run(Supplier<T> provider,Runnable schedule, Consumer<T> succeeded){
-		Job<T> task = new Job<T>(provider,schedule,succeeded);		
+	protected <T> void run(Supplier<T> provider, Runnable schedule, Consumer<T> succeeded) {
+		Job<T> task = new Job<T>(provider, schedule, succeeded);
 		Thread worker = new Thread(task);
-		worker.start();		
+		worker.start();
 	}
-	
+
 	protected <T> Callable<T> start(Supplier<T> provider, Runnable schedule) {
-		Job<T> task = new Job<T>(provider,schedule);
+		Job<T> task = new Job<T>(provider, schedule);
 		Thread worker = new Thread(task);
 		Callable<T> result = () -> task.get();
-		worker.start();		
+		worker.start();
 		return result;
 	}
-	
-	
+
 }
