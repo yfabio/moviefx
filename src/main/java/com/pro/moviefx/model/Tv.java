@@ -1,4 +1,4 @@
-package com.pro.moviefx.api;
+package com.pro.moviefx.model;
 
 import lombok.Getter;
 import lombok.Setter;

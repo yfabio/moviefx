@@ -4,7 +4,7 @@ public enum TvApi {
 	
 	POPULAR("Popular"),
 	AIRING_TODAY("Airing today"),
-	ON_THE_IAR("On the air"),
+	ON_THE_AIR("On the air"),
 	TOP_RATED("Top rated");
 	
 	private String title;

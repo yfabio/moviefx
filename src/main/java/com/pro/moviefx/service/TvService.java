@@ -1,13 +1,13 @@
 package com.pro.moviefx.service;
 
-import java.util.List;
-
-import com.pro.moviefx.api.Media;
 import com.pro.moviefx.api.TvApi;
+import com.pro.moviefx.api.Tvs;
 
 public interface TvService {
 
-	List<? extends Media> getMovies(TvApi movieApi);
+		
+	Tvs getTvs(TvApi movieApi);
 	
+	Tvs getTvs(TvApi movieApi,Integer pageIndex); 
 	
 }

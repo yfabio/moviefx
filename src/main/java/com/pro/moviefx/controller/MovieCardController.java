@@ -6,10 +6,10 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-import com.pro.moviefx.api.Movie;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
+import com.pro.moviefx.model.Movie;
 import com.pro.moviefx.service.NavigationService;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.task.TaskBuilder;
@@ -115,7 +115,7 @@ public class MovieCardController extends BaseController  implements CallbackCont
 		
 		new Thread(new TaskBuilder<Movie>()
 				.call(() -> {					
-					String json =Http.get("https://api.themoviedb.org/3/movie/%d".formatted(id), BodyHandlers.ofString());					
+					String json = Http.get("https://api.themoviedb.org/3/movie/%d".formatted(id), BodyHandlers.ofString());					
 					Gson gson = new Gson();					
 					return gson.fromJson(json, Movie.class);					
 				})

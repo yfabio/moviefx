@@ -2,12 +2,12 @@ package com.pro.moviefx.controller;
 
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import com.pro.moviefx.api.Media;
 import com.pro.moviefx.api.MovieApi;
+import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.TvApi;
+import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.PlaceHolder;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.service.MovieService;
@@ -78,7 +78,11 @@ public class MainController extends BaseController {
 
 		navigation.set(navigationService.getNavigator(Url.HOME));
 
-		logo.setOnMouseClicked(evt -> navigation.setValue(navigationService.getNavigator(Url.HOME)));
+		run(() -> movieService.getMovies(MovieApi.POPULAR, 1), null,movies -> {	
+			movies.setMovieApi(MovieApi.POPULAR);
+			navigation.setValue(navigationService.getNavigator(Url.HOME,movies));
+		});
+		
 
 		btnMovies.setOnMouseEntered(evt -> onShowContextMenu(evt));
 		btnMovies.setOnMouseExited(evt -> hideContextMenu(evt));
@@ -131,7 +135,8 @@ public class MainController extends BaseController {
 			menuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					List<? extends Media> movies = movieService.getMovies(value);
+					Movies movies = movieService.getMovies(value);
+					movies.setMovieApi(value);
 					navigation.set(navigationService.getNavigator(Url.HOME, movies));
 				}
 			});
@@ -153,7 +158,8 @@ public class MainController extends BaseController {
 			menuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					List<? extends Media> tvs = tvService.getMovies(value);
+					Tvs tvs = tvService.getTvs(value);
+					tvs.setTvApi(value);
 					navigation.set(navigationService.getNavigator(Url.HOME, tvs));
 				}
 			});

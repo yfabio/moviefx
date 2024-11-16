@@ -6,10 +6,10 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-import com.pro.moviefx.api.Tv;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
+import com.pro.moviefx.model.Tv;
 import com.pro.moviefx.service.NavigationService;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.task.TaskBuilder;

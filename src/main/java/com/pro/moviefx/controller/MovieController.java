@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import com.pro.moviefx.api.Movie;
 import com.pro.moviefx.fx.CallbackController;
+import com.pro.moviefx.model.Movie;
 import com.pro.moviefx.task.TaskBuilder;
 
 import javafx.fxml.FXML;

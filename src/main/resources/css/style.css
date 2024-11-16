@@ -243,11 +243,8 @@
 	-fx-text-fill: -fx-primary;
 }
 
-#flowpane {	
-	-fx-alignment: top-center;
-	-fx-padding: 10 10;
-	-fx-vgap: 20;
-	-fx-hgap: 20;	
+.pagination > .pagination-control  {
+	-fx-font-size: 14px;
 }
 
 

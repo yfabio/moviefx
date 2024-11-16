@@ -6,7 +6,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -241,24 +241,9 @@
 			</left>
 			<center>
 				<BorderPane BorderPane.alignment="CENTER">
-					<center>
-						<ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
-							<content>
-								<FlowPane fx:id="flowpane" />
-							</content>
-							<BorderPane.margin>
-								<Insets bottom="20.0" />
-							</BorderPane.margin>
-						</ScrollPane>
-					</center>
-					<bottom>
-						<AnchorPane BorderPane.alignment="CENTER">
-							<children>
-								<Button fx:id="loadmore" layoutX="248.0" layoutY="135.0" mnemonicParsing="false" styleClass="load-button" text="Load More" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-							</children>
-						</AnchorPane>
-					</bottom>
-				</BorderPane>
+               <center>
+                  <Pagination fx:id="pagination" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
+               </center></BorderPane>
 			</center>
 		</BorderPane>      
 	</children>
