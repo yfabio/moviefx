@@ -77,8 +77,8 @@ public class MainController extends BaseController {
 		placeholder.getNavigation().bindBidirectional(navigation);
 
 		navigation.set(navigationService.getNavigator(Url.HOME));
-
-		run(() -> movieService.getMovies(MovieApi.POPULAR), null,movies -> {			
+		
+		action(() -> movieService.getMovies(MovieApi.POPULAR), movies -> {			
 			navigation.setValue(navigationService.getNavigator(Url.HOME,movies));
 		});
 		
@@ -156,8 +156,7 @@ public class MainController extends BaseController {
 			menuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					Tvs tvs = tvService.getTvs(value);
-					tvs.setTvApi(value);
+					Tvs tvs = tvService.getTvs(value);					
 					navigation.set(navigationService.getNavigator(Url.HOME, tvs));
 				}
 			});

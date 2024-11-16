@@ -69,8 +69,8 @@ public class HomeController extends BaseController implements CallbackController
 				@Override
 				public Node call(Integer pageIndex) {
 
-					Callable<Movies> result = start(
-							() -> movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex), null);
+					Callable<Movies> result = task(
+							() -> movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));
 
 					try {
 						return createPageIndex(pageIndex, result.call());
@@ -88,7 +88,8 @@ public class HomeController extends BaseController implements CallbackController
 			pagination.setPageFactory(new Callback<Integer, Node>() {
 				@Override
 				public Node call(Integer pageIndex) {
-					Callable<Tvs> result = start(() -> tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex), null);
+					
+					Callable<Tvs> result = task(() -> tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));
 
 					try {
 						return createPageIndex(pageIndex, result.call());
@@ -112,17 +113,16 @@ public class HomeController extends BaseController implements CallbackController
 		flowPane.setHgap(15);
 		flowPane.setVgap(15);
 		flowPane.setAlignment(Pos.TOP_CENTER);
-		scrollPane.setPadding(new Insets(10));
+		scrollPane.setPadding(new Insets(5));
 		scrollPane.setContent(flowPane);
 
 		if (tmdb instanceof Movies movies) {
 			movies.getResults().forEach(movie -> {
-				run(navigationService.getNavigator(Url.CARD_MOVIES, movie)::navigate, null,
-						flowPane.getChildren()::add);
+				action(navigationService.getNavigator(Url.CARD_MOVIES, movie)::navigate, flowPane.getChildren()::add);
 			});
 		} else if (tmdb instanceof Tvs tvs) {
 			tvs.getResults().forEach(tv -> {
-				run(navigationService.getNavigator(Url.CARD_TVS, tv)::navigate, null, flowPane.getChildren()::add);
+				action(navigationService.getNavigator(Url.CARD_TVS, tv)::navigate,flowPane.getChildren()::add);
 			});
 		}
 

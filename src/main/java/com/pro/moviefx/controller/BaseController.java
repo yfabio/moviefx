@@ -25,32 +25,22 @@ public class BaseController implements Initializable {
 	public class Job<T> extends Task<T> {
 
 		private Supplier<T> provider;
-		private Runnable scheduled;
 		private Consumer<T> succeeded;
 
-		public Job(Supplier<T> provider, Runnable scheduled, Consumer<T> succeeded) {
-			this.provider = provider;
-			this.scheduled = scheduled;
+		public Job(Supplier<T> provider, Consumer<T> succeeded) {
+			this.provider = provider;			
 			this.succeeded = succeeded;
 		}
 
-		public Job(Supplier<T> provider, Runnable scheduled) {
-			this.provider = provider;
-			this.scheduled = scheduled;
+		public Job(Supplier<T> provider) {
+			this.provider = provider;		
 		}
 
 		@Override
 		protected T call() throws Exception {
 			return provider.get();
 		}
-
-		@Override
-		protected void scheduled() {
-			if (scheduled != null) {
-				scheduled.run();
-			}
-		}
-
+		
 		@Override
 		protected void succeeded() {
 			if (succeeded != null) {
@@ -72,14 +62,14 @@ public class BaseController implements Initializable {
 		set.add(stage);
 	}
 
-	protected <T> void run(Supplier<T> provider, Runnable schedule, Consumer<T> succeeded) {
-		Job<T> task = new Job<T>(provider, schedule, succeeded);
+	protected <T> void action(Supplier<T> provider, Consumer<T> succeeded) {
+		Job<T> task = new Job<T>(provider, succeeded);
 		Thread worker = new Thread(task);
 		worker.start();
 	}
 
-	protected <T> Callable<T> start(Supplier<T> provider, Runnable schedule) {
-		Job<T> task = new Job<T>(provider, schedule);
+	protected <T> Callable<T> task(Supplier<T> provider) {
+		Job<T> task = new Job<T>(provider);
 		Thread worker = new Thread(task);
 		Callable<T> result = () -> task.get();
 		worker.start();
