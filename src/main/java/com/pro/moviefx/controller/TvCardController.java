@@ -115,7 +115,7 @@ public class TvCardController extends BaseController  implements CallbackControl
 		
 		new Thread(new TaskBuilder<Tv>()
 				.call(() -> {					
-					String json =Http.get("https://api.themoviedb.org/3/tv/%d".formatted(id), BodyHandlers.ofString(), headers);					
+					String json =Http.get("https://api.themoviedb.org/3/tv/%d".formatted(id), BodyHandlers.ofString());					
 					Gson gson = new Gson();					
 					return gson.fromJson(json, Tv.class);					
 				})

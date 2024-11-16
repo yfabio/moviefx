@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class PlaceHolder extends StackPane {
+	
 	private ObjectProperty<Navigator> navigation = new SimpleObjectProperty<Navigator>();
 	
 	public PlaceHolder() {		

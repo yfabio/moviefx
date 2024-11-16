@@ -115,7 +115,7 @@ public class MovieCardController extends BaseController  implements CallbackCont
 		
 		new Thread(new TaskBuilder<Movie>()
 				.call(() -> {					
-					String json =Http.get("https://api.themoviedb.org/3/movie/%d".formatted(id), BodyHandlers.ofString(), headers);					
+					String json =Http.get("https://api.themoviedb.org/3/movie/%d".formatted(id), BodyHandlers.ofString());					
 					Gson gson = new Gson();					
 					return gson.fromJson(json, Movie.class);					
 				})

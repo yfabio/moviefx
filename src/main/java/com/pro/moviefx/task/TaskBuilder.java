@@ -3,15 +3,13 @@ package com.pro.moviefx.task;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.pro.moviefx.fx.Command;
-
 import javafx.concurrent.Task;
 
 public class TaskBuilder<T> implements Builder<T> {
 
 	private Consumer<T> succeed;
 	private Supplier<T> work;
-	private Command schedule;
+	private Runnable schedule;
 	private Consumer<Throwable> error;
 
 	@Override
@@ -21,7 +19,7 @@ public class TaskBuilder<T> implements Builder<T> {
 	}
 
 	@Override
-	public Builder<T> scheduled(Command schedule) {
+	public Builder<T> scheduled(Runnable schedule) {
 		this.schedule = schedule;
 		return this;
 	}
@@ -41,17 +39,21 @@ public class TaskBuilder<T> implements Builder<T> {
 
 	@Override
 	public Task<T> build() {
+					
 		Task<T> task = new Task<T>() {
+			
 			@Override
 			protected T call() throws Exception {
 				return work.get();
 			}
+			
 			@Override
 			protected void scheduled() {
 				if(schedule!=null) {
-					schedule.execute();
+					schedule.run();
 				}				
 			}
+						
 			@Override
 			protected void succeeded() {
 				succeed.accept(getValue());

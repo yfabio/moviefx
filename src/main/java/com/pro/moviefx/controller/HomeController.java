@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.google.gson.Gson;
 import com.pro.moviefx.api.Media;
 import com.pro.moviefx.api.Movie;
-import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.Tv;
-import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
+import com.pro.moviefx.service.MovieService;
 import com.pro.moviefx.service.NavigationService;
+import com.pro.moviefx.service.impl.MovieServiceImpl;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.task.TaskBuilder;
 
@@ -39,9 +38,10 @@ public class HomeController extends BaseController implements CallbackController
 
 	@FXML
 	private Accordion accordionFilter;
+
+	private NavigationService navigationService = new NavigationServiceImpl();
 	
-		
-	private NavigationService navigate = new NavigationServiceImpl();
+	private MovieService movieService = new MovieServiceImpl();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -50,110 +50,36 @@ public class HomeController extends BaseController implements CallbackController
 
 		new Thread(new TaskBuilder<List<Node>>().call(() -> {
 			String json = Http.get("https://api.themoviedb.org/3/movie/popular?page=%d".formatted(nextInt.get()),
-					BodyHandlers.ofString(), headers);
-			return getMoviesCards(json);					
-		}).succeeded(cards -> {			
-			flowpane.getChildren().addAll(cards);
-		}).build()).start();
-
-		loadmore.setOnAction(evt -> onLoadMore());
-
-	}
-
-	private void onLoadMore() {
-
-		new Thread(new TaskBuilder<List<Node>>()
-			.scheduled(flowpane.getChildren()::clear)	
-			.call(() -> {			
-				if(whichDoILoadMore.get(0).equalsIgnoreCase("movies")) {
-					String json = Http.get(
-							"https://api.themoviedb.org/3/movie/popular?page=%d".formatted(nextInt.incrementAndGet()),
-							BodyHandlers.ofString(), headers);
-					return getMoviesCards(json);
-				}else if(whichDoILoadMore.get(0).equalsIgnoreCase("tvShow")){
-					String json = Http.get(
-							"https://api.themoviedb.org/3/tv/popular?page=%d".formatted(nextInt.incrementAndGet()),
-							BodyHandlers.ofString(), headers);
-					return getTvsCards(json);
-				}else {
-					throw new RuntimeException();
-				}			
+					BodyHandlers.ofString());
+			return movieService.getCardMovies(json);
 		}).succeeded(cards -> {
 			flowpane.getChildren().addAll(cards);
 		}).build()).start();
 
 	}
 
-	private List<Node> getMoviesCards(String json) {
 
-		List<Node> list = new ArrayList<>();
-
-		try {
-
-			Gson gson = new Gson();
-
-			Movies movies = gson.fromJson(json, Movies.class);
-
-			List<Movie> listMovies = movies.getResults();
-
-			for (Movie movie : listMovies) {
-				Pane pane = navigate.getNavigator(Url.CARD_MOVIES,movie).navigate();
-				list.add(pane);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-
-	private List<Node> getTvsCards(String json) {
-
-		List<Node> list = new ArrayList<>();
-
-		try {
-
-			Gson gson = new Gson();
-
-			Tvs tvs = gson.fromJson(json, Tvs.class);
-
-			List<Tv> tvList = tvs.getResults();
-
-			for (Tv tv : tvList) {
-				Pane pane = navigate.getNavigator(Url.CARD_TVS,tv).navigate();
-				list.add(pane);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
+	
 
 	@Override
 	public void accept(List<? extends Media> value) {
 
-		new Thread(new TaskBuilder<List<Node>>().scheduled(() -> {
-			flowpane.getChildren().clear();
-			if (whichDoILoadMore.size() > 1) {
-				whichDoILoadMore.remove(0);
-			}
-		}).call(() -> {
+		new Thread(new TaskBuilder<List<Node>>().call(() -> {
 			List<Node> list = new ArrayList<>();
 			for (Media common : value) {
 				if (common instanceof Movie) {
-					Pane pane = navigate.getNavigator(Url.CARD_MOVIES, Movie.class.cast(common)).navigate();
-					
+					Pane pane = navigationService.getNavigator(Url.CARD_MOVIES, Movie.class.cast(common)).navigate();
 					list.add(pane);
 				} else if (common instanceof Tv) {
-					Pane pane = navigate.getNavigator(Url.CARD_TVS,Tv.class.cast(common)).navigate();
+					Pane pane = navigationService.getNavigator(Url.CARD_TVS, Tv.class.cast(common)).navigate();
 					list.add(pane);
 				}
 			}
 			return list;
-		}).succeeded(flowpane.getChildren()::addAll).build()).start();
+		}).succeeded(items -> {
+			flowpane.getChildren().clear();
+			flowpane.getChildren().addAll(items);
+		}).build()).start();
 
 	}
 
