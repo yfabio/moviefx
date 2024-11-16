@@ -39,9 +39,11 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Override
 	public Movies getMovies(MovieApi movieApi) {
+		
 		String json = Http.get(String.format("%s%s",BASE_URL,movieApi.name().toLowerCase()), BodyHandlers.ofString());
 		
 		Movies movies = gson.fromJson(json, Movies.class);
+		movies.setMovieApi(movieApi);
 		
 		return movies;	
 	}
