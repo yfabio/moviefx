@@ -1,13 +1,12 @@
 package com.pro.moviefx.controller;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.model.Tv;
-import com.pro.moviefx.task.TaskBuilder;
+import com.pro.moviefx.resource.Resource;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -19,6 +18,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 
@@ -60,71 +60,50 @@ public class TvController extends BaseController implements CallbackController<T
 
 	@Override
 	public void accept(Tv value) {
+		
+		
+		task(() -> {
+			Image image = new Image("https://image.tmdb.org/t/p/w780/".concat(value.getBackdrop_path()));
+			// new BackgroundSize(width, height, widthAsPercentage, heightAsPercentage, contain, cover)
+			BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+			// new BackgroundImage(image, repeatX, repeatY, position, size)
+			BackgroundImage backgroundImage = new BackgroundImage(image,
+					                                 BackgroundRepeat.ROUND, 
+					                                 BackgroundRepeat.NO_REPEAT, 
+					                                 BackgroundPosition.CENTER,								                                 
+					                                 backgroundSize);
+			// new Background(images...)
+			return new Background(backgroundImage);
 			
-		new Thread(new TaskBuilder<Background>()
-				.call(() ->  {
-					Image image = new Image("https://image.tmdb.org/t/p/w780/".concat(value.getBackdrop_path()));
-					// new BackgroundSize(width, height, widthAsPercentage, heightAsPercentage, contain, cover)
-					BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-					// new BackgroundImage(image, repeatX, repeatY, position, size)
-					BackgroundImage backgroundImage = new BackgroundImage(image,
-							                                 BackgroundRepeat.ROUND, 
-							                                 BackgroundRepeat.NO_REPEAT, 
-							                                 BackgroundPosition.CENTER,								                                 
-							                                 backgroundSize);
-					// new Background(images...)
-					Background background = new Background(backgroundImage);
-					return background;
-				})
-				.succeeded(movieBackdropImage::setBackground)
-				.build())
-				.start();
+		}, movieBackdropImage::setBackground);
 		
-		
-		new Thread(new TaskBuilder<Image>()
-				.call(() -> new Image("https://image.tmdb.org/t/p/w780/".concat(value.getPoster_path())))
-				.succeeded(movieImage::setImage)
-				.build())
-				.start();	
+		task(() -> new Image("https://image.tmdb.org/t/p/w780/".concat(value.getPoster_path())), movieImage::setImage);
+	
 		
 		LocalDate dateRelease = LocalDate.parse(value.getFirst_air_date());
 		
 		String genresCombined = Arrays.stream(value.getGenres()).map(p -> p.name)
 				              .collect(Collectors.joining(", "));
-		
-				
+					
 				
 		if(value!=null) {
+								
+			String percentageVote = nf.format(value.getVote_average() * 100 / 1000);
 			
-					
-			movieCircle.getStyleClass().clear();
-			moviePercent.getStyleClass().clear();
-			
-			double result = BigDecimal.valueOf(value.getVote_average())
-									  .multiply(BigDecimal.valueOf(100))
-									  .doubleValue();
-			
-			double percentLength = BigDecimal.valueOf(value.getVote_average())
-											 .multiply(BigDecimal.valueOf(100))
-											 .divide(BigDecimal.valueOf(1000))
-											 .multiply(BigDecimal.valueOf(360))
-											 .doubleValue();
-				
-			
-			movieCircle.getStyleClass().add("progress-circle");
-			moviePercent.getStyleClass().add("progress-percent");
-			
-			if(result >= 700) {				
-				movieCircle.getStyleClass().add("progress-circle-green-5");
-				moviePercent.getStyleClass().add("progress-percent-green");
-			}else if(result >= 400  && result <= 690) {
-				movieCircle.getStyleClass().add("progress-circle-yellow-5");
-				moviePercent.getStyleClass().add("progress-percent-yellow");
-			}else {
-				movieCircle.getStyleClass().add("progress-circle-red-5");
-				moviePercent.getStyleClass().add("progress-percent-red");
-			}
+			double percentageVoteValue = Double.parseDouble(percentageVote.replace("%", ""));
 
+			double percentLength = 360 * percentageVoteValue / 100;
+									
+			if(percentageVoteValue > 70) {				
+				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.green")));
+				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.green")));
+			}else if(percentageVoteValue < 70 && percentageVoteValue <= 50) {
+				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.yellow")));
+				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.yellow")));
+			}else {
+				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.red")));
+				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.red")));
+			}
 			
 			
 			movieName.setText(value.getOriginal_title());
@@ -134,7 +113,7 @@ public class TvController extends BaseController implements CallbackController<T
 			tagline.setText(value.getTagline());
 			overview.setText(value.getOverview());
 			moviePercent.setLength(percentLength);
-			moviePercentText.setText("%.01f".formatted(value.getVote_average()).replace(".","").concat("%"));
+			moviePercentText.setText(percentageVote);
 			
 			
 		}

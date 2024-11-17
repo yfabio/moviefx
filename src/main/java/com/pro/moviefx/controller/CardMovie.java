@@ -67,11 +67,14 @@ public class CardMovie extends BaseController implements CallbackController<Movi
 			double percentageVoteValue = Double.parseDouble(percentageVote.replace("%", ""));
 
 			double percentLength = 360 * percentageVoteValue / 100;
+			
+			movieCircle.setStroke(Color.TRANSPARENT);
+			moviePercent.setStroke(Color.TRANSPARENT);
 									
-			if(percentageVoteValue > 70) {				
+			if(percentageVoteValue >= 70) {				
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.green")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.green")));
-			}else if(percentageVoteValue < 70 && percentageVoteValue <= 50) {
+			}else if(percentageVoteValue > 45 && percentageVoteValue <= 69) {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.yellow")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.yellow")));
 			}else {

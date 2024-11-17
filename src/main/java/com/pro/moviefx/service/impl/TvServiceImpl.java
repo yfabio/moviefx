@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.pro.moviefx.api.TvApi;
 import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.http.Http;
+import com.pro.moviefx.model.Tv;
 import com.pro.moviefx.service.TvService;
 
 public class TvServiceImpl implements TvService {
@@ -13,7 +14,6 @@ public class TvServiceImpl implements TvService {
 	private static final String BASE_URL = "https://api.themoviedb.org/3/tv/";
 
 	private Gson gson = new Gson();
-
 	
 	@Override
 	public Tvs getTvs(TvApi tvApi) {
@@ -34,6 +34,13 @@ public class TvServiceImpl implements TvService {
 		Tvs tvs = gson.fromJson(json, Tvs.class);
 
 		return tvs;
+	}
+
+	@Override
+	public Tv getTvById(Long id) {
+		String json = Http.get(String.format("%s%d",BASE_URL,id),BodyHandlers.ofString());
+		Tv tv = gson.fromJson(json,Tv.class);
+		return tv;		
 	}
 
 }
