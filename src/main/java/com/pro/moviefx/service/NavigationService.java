@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 
 public interface NavigationService {
-	public <T> Navigator getNavigator(Stage stage,Url url, T obj); 
-	public <T> Navigator getNavigator(Url url, T obj);
-	public <T> Navigator getNavigator(Url url);
+	public <T> Navigator loadView(Stage stage,Url url, T obj); 
+	public <T> Navigator loadView(Url url, T obj);
+	public <T> Navigator loadView(Url url);
 }

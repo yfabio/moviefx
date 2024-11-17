@@ -16,7 +16,5 @@ public enum MovieApi {
 	public String getTitle() {
 		return title;
 	}
-	
-	
 
 }

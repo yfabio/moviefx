@@ -13,17 +13,17 @@ public class NavigationServiceImpl implements NavigationService {
 	private FxLoader fxLoader = new FxLoader();
 
 	@Override
-	public <T> Navigator getNavigator(Stage stage, Url url, T obj) {
+	public <T> Navigator loadView(Stage stage, Url url, T obj) {
 		return fxLoader.load(stage,url,obj);
 	}
 
 	@Override
-	public <T> Navigator getNavigator(Url url, T obj) {
+	public <T> Navigator loadView(Url url, T obj) {
 		return fxLoader.load(url,obj);
 	}
 
 	@Override
-	public <T> Navigator getNavigator(Url url) {
+	public <T> Navigator loadView(Url url) {
 		return fxLoader.load(url,null);
 	}
 	

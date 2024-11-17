@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.pro.moviefx.api.MovieApi;
-import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.TvApi;
-import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.PlaceHolder;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.service.MovieService;
@@ -74,12 +72,10 @@ public class MainController extends BaseController {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		placeholder.getNavigation().bindBidirectional(navigation);
-
-		navigation.set(navigationService.getNavigator(Url.HOME));
+		placeholder.getNavigation().bindBidirectional(navgiation);
 		
-		action(() -> movieService.getMovies(MovieApi.POPULAR), movies -> {			
-			navigation.setValue(navigationService.getNavigator(Url.HOME,movies));
+		task(() -> movieService.getMovies(MovieApi.POPULAR), movies -> {			
+			navgiation.setValue(navigationService.loadView(Url.HOME,movies));
 		});
 		
 
@@ -134,8 +130,9 @@ public class MainController extends BaseController {
 			menuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					Movies movies = movieService.getMovies(value);					
-					navigation.set(navigationService.getNavigator(Url.HOME, movies));
+					task(() -> movieService.getMovies(value),movies -> {
+						navgiation.set(navigationService.loadView(Url.HOME, movies));						
+					});										
 				}
 			});
 		});
@@ -156,8 +153,9 @@ public class MainController extends BaseController {
 			menuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					Tvs tvs = tvService.getTvs(value);					
-					navigation.set(navigationService.getNavigator(Url.HOME, tvs));
+					task(() -> tvService.getTvs(value), tvs -> {
+						navgiation.set(navigationService.loadView(Url.HOME, tvs));
+					});					
 				}
 			});
 		});

@@ -8,7 +8,7 @@ public class Resource {
 	
 	static {
 		try {
-			prop.load(Resource.class.getResourceAsStream("/prop/app.properties"));
+			prop.load(Resource.class.getResourceAsStream("/prop/app-dev.properties"));
 		} catch (Exception e) {			
 		}
 	}

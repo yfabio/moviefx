@@ -4,7 +4,6 @@ import com.pro.moviefx.api.TvApi;
 import com.pro.moviefx.api.Tvs;
 
 public interface TvService {
-
 		
 	Tvs getTvs(TvApi movieApi);
 	

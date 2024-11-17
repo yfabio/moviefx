@@ -118,11 +118,11 @@ public class HomeController extends BaseController implements CallbackController
 
 		if (tmdb instanceof Movies movies) {
 			movies.getResults().forEach(movie -> {
-				action(navigationService.getNavigator(Url.CARD_MOVIES, movie)::navigate, flowPane.getChildren()::add);
+				task(navigationService.loadView(Url.CARD_MOVIES,movie)::navigate, flowPane.getChildren()::add);
 			});
 		} else if (tmdb instanceof Tvs tvs) {
 			tvs.getResults().forEach(tv -> {
-				action(navigationService.getNavigator(Url.CARD_TVS, tv)::navigate,flowPane.getChildren()::add);
+				task(navigationService.loadView(Url.CARD_TVS,tvs)::navigate,flowPane.getChildren()::add);
 			});
 		}
 

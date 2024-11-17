@@ -120,7 +120,7 @@ public class TvCardController extends BaseController  implements CallbackControl
 					return gson.fromJson(json, Tv.class);					
 				})
 				.succeeded(tv -> {									
-					navigation.set(navigationService.getNavigator(Url.TV,tv));					
+					navgiation.set(navigationService.loadView(Url.TV,tv));					
 				}).build()).start();
 			
 	}

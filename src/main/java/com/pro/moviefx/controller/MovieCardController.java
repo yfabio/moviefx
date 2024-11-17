@@ -24,7 +24,7 @@ import javafx.scene.shape.Circle;
 
 
 
-public class MovieCardController extends BaseController  implements CallbackController<Movie> {
+public class MovieCardController extends BaseController implements CallbackController<Movie>  {
 
 	@FXML
 	private ImageView cardImage;
@@ -53,7 +53,7 @@ public class MovieCardController extends BaseController  implements CallbackCont
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-			
+		
 	}
 
 	@Override
@@ -119,8 +119,8 @@ public class MovieCardController extends BaseController  implements CallbackCont
 					Gson gson = new Gson();					
 					return gson.fromJson(json, Movie.class);					
 				})
-				.succeeded(movie -> {									
-					navigation.set(navigationService.getNavigator(Url.MOVIE,movie));					
+				.succeeded(movie -> {					
+					navgiation.setValue(navigationService.loadView(Url.MOVIE,movie));					
 				}).build()).start();
 		
 		

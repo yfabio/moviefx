@@ -17,7 +17,7 @@ public class App extends Application {
 	public void start(Stage stage) throws Exception {
 		
 		stage.setTitle("TMDB");
-		Pane root = navigate.getNavigator(stage, Url.MAIN, null).navigate();	
+		Pane root = navigate.loadView(stage, Url.MAIN, null).navigate();	
 		Scene scene = new Scene(root);		
 		stage.centerOnScreen();
 		stage.setScene(scene);
