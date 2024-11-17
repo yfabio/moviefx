@@ -193,39 +193,21 @@
 
 /* PROGRESS CIRCLE */
 
-.progress-circle {
-	-fx-fill: -fx-primary;	
-	-fx-stroke-width: 3px;
+.circle {
+	-fx-stroke-width: 4;
+	-fx-stroke-type: inside;
 }
 
-.progress-percent  {
+.circle-behind {
+	-fx-fill: #374252;
+}
+
+.circle-over {
 	-fx-fill: transparent;	
-	-fx-stroke-width: 4px;
+	-fx-stroke-line-cap: round;
+	-fx-alignment: top-right;
 }
 
-.progress-circle-green-5 {
-	-fx-stroke: rgb(29,176,106,0.5);
-}
-
-.progress-circle-yellow-5 {
-	-fx-stroke: rgb(210,213,49,0.5);
-}
-
-.progress-circle-red-5 {
-	-fx-stroke: rgb(219,35,96,0.5);
-}
-
-.progress-percent-green {
-	-fx-stroke: rgb(29,176,106);
-}
-
-.progress-percent-yellow {
-	-fx-stroke: rgb(210,213,49);
-}
-
-.progress-percent-red {
-	-fx-stroke: rgb(219,35,96);
-}
 
 
 

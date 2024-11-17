@@ -1,6 +1,7 @@
 package com.pro.moviefx.controller;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -21,6 +22,8 @@ public class BaseController implements Initializable {
 	protected static final ObjectProperty<Navigator> navgiation = new SimpleObjectProperty<Navigator>();
 
 	private static Set<Stage> set = new HashSet<>();
+	
+	protected NumberFormat nf = NumberFormat.getPercentInstance();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
