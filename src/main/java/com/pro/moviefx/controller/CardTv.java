@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.Url;
 import com.pro.moviefx.http.Http;
-import com.pro.moviefx.model.Movie;
+import com.pro.moviefx.model.Tv;
 import com.pro.moviefx.service.NavigationService;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.task.TaskBuilder;
@@ -24,7 +24,7 @@ import javafx.scene.shape.Circle;
 
 
 
-public class MovieCardController extends BaseController implements CallbackController<Movie>  {
+public class CardTv extends BaseController  implements CallbackController<Tv> {
 
 	@FXML
 	private ImageView cardImage;
@@ -53,15 +53,15 @@ public class MovieCardController extends BaseController implements CallbackContr
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+			
 	}
 
 	@Override
-	public void accept(Movie value) {	
+	public void accept(Tv value) {	
 		try {
 								
 			new Thread(new TaskBuilder<Image>()	
-					.scheduled(() -> {												
+					.scheduled(() -> {
 						card.setOnMouseClicked(evt -> onMovieSelected(value.getId()));						
 					})
 					.call(() -> new Image("https://image.tmdb.org/t/p/w300/".concat(value.getPoster_path())))
@@ -89,7 +89,7 @@ public class MovieCardController extends BaseController implements CallbackContr
 			moviePercent.getStyleClass().add("progress-percent");
 			
 			if(result >= 700) {				
-				movieCircle.getStyleClass().add("progress-circle-green-5");				
+				movieCircle.getStyleClass().add("progress-circle-green-5");
 				moviePercent.getStyleClass().add("progress-percent-green");
 			}else if(result >= 400  && result <= 690) {
 				movieCircle.getStyleClass().add("progress-circle-yellow-5");
@@ -100,9 +100,9 @@ public class MovieCardController extends BaseController implements CallbackContr
 			}
 			
 			moviePercent.setLength(percentLength);
-			cardName.setText(value.getOriginal_title());
-			cardDate.setText(value.getRelease_date());
-			
+			cardName.setText(value.getOriginal_name());
+			cardDate.setText(value.getFirst_air_date());
+						
 			cardPercentText.setText(String.valueOf(value.getVote_average()).replace(".", "").concat("%"));
 			
 		} catch (Exception e) {
@@ -113,28 +113,17 @@ public class MovieCardController extends BaseController implements CallbackContr
 
 	private void onMovieSelected(Long id) {		
 		
-		new Thread(new TaskBuilder<Movie>()
+		new Thread(new TaskBuilder<Tv>()
 				.call(() -> {					
-					String json = Http.get("https://api.themoviedb.org/3/movie/%d".formatted(id), BodyHandlers.ofString());					
+					String json =Http.get("https://api.themoviedb.org/3/tv/%d".formatted(id), BodyHandlers.ofString());					
 					Gson gson = new Gson();					
-					return gson.fromJson(json, Movie.class);					
+					return gson.fromJson(json, Tv.class);					
 				})
-				.succeeded(movie -> {					
-					navgiation.setValue(navigationService.loadView(Url.MOVIE,movie));					
+				.succeeded(tv -> {									
+					navgiation.set(navigationService.loadView(Url.TV,tv));					
 				}).build()).start();
-		
-		
-	
-				
+			
 	}
-
-
-
-
-	
-
-
-	
 	
 
 }

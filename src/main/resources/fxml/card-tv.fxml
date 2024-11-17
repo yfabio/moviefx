@@ -13,7 +13,7 @@
 
 <VBox fx:id="card" prefWidth="220.0" styleClass="card"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.pro.moviefx.controller.TvCardController">
+	fx:controller="com.pro.moviefx.controller.CardTv">
 	<children>
 		<VBox styleClass="card-image">
 			<children>

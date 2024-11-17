@@ -75,7 +75,7 @@ public class MainController extends BaseController {
 		placeholder.getNavigation().bindBidirectional(navgiation);
 		
 		task(() -> movieService.getMovies(MovieApi.POPULAR), movies -> {			
-			navgiation.setValue(navigationService.loadView(Url.HOME,movies));
+			navgiation.set(navigationService.loadView(Url.HOME,movies));
 		});
 		
 

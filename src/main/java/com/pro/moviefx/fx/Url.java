@@ -4,8 +4,8 @@ public enum Url {
 	
 	MAIN("/fxml/main.fxml"),
 	HOME("/fxml/home.fxml"),
-	CARD_MOVIES("/fxml/cardMovies.fxml"),
-	CARD_TVS("/fxml/cardTvs.fxml"),
+	CARD_MOVIE("/fxml/card-movie.fxml"),
+	CARD_TV("/fxml/card-tv.fxml"),
 	MOVIE("/fxml/movie.fxml"),
 	TV("/fxml/tv.fxml");
 
