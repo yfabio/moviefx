@@ -97,10 +97,10 @@ public class MovieController extends BaseController implements CallbackControlle
 
 			double percentLength = 360 * percentageVoteValue / 100;
 									
-			if(percentageVoteValue > 70) {				
+			if(percentageVoteValue >= 70) {				
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.green")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.green")));
-			}else if(percentageVoteValue < 70 && percentageVoteValue <= 50) {
+			}else if(percentageVoteValue > 45 || percentageVoteValue <= 69) {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.yellow")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.yellow")));
 			}else {

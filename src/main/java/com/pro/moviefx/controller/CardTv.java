@@ -77,7 +77,7 @@ public class CardTv extends BaseController  implements CallbackController<Tv> {
 			if(percentageVoteValue >= 70) {				
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.green")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.green")));
-			}else if(percentageVoteValue > 45 && percentageVoteValue <= 69) {
+			}else if(percentageVoteValue > 45 || percentageVoteValue <= 69) {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.yellow")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.yellow")));
 			}else {
