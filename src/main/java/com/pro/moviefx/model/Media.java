@@ -2,12 +2,14 @@ package com.pro.moviefx.model;
 
 import java.io.Serializable;
 
+import com.pro.moviefx.api.Tmdb;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Media implements Serializable {
+public class Media extends Tmdb implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

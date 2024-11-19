@@ -2,7 +2,6 @@ package com.pro.moviefx.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
 
 import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.Tmdb;
@@ -15,6 +14,7 @@ import com.pro.moviefx.service.TvService;
 import com.pro.moviefx.service.impl.MovieServiceImpl;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.service.impl.TvServiceImpl;
+import com.pro.moviefx.task.Job;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -45,7 +45,7 @@ public class HomeController extends BaseController implements CallbackController
 	private NavigationService navigationService = new NavigationServiceImpl();
 
 	private MovieService movieService = new MovieServiceImpl();
-	
+
 	private TvService tvService = new TvServiceImpl();
 
 	@Override
@@ -64,43 +64,45 @@ public class HomeController extends BaseController implements CallbackController
 		if (tmdb instanceof Movies movies) {
 			pagination.setPageCount(movies.getTotal_pages());
 			pagination.setCurrentPageIndex(0);
-
-			pagination.setPageFactory(new Callback<Integer, Node>() {
-				@Override
-				public Node call(Integer pageIndex) {
-
-					Callable<Movies> result = task(
-							() -> movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));
-
-					try {
-						return createPageIndex(pageIndex, result.call());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-					return null;
+			
+			Job<Callback<Integer, Node>> job = new Job<>(() -> {
+				try {
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(pageIndex,movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));				
+					return callback;
+				} catch (Exception e) {
+					HomeController.this.alertError(e);
 				}
-
+				return null;
 			});
+			
+			job.valueProperty().addListener((obs,o,n) -> {
+				pagination.setPageFactory(n);
+			});
+			
+			new Thread(job).start();
+			
+			
 		} else if (tmdb instanceof Tvs tvs) {
 			pagination.setPageCount(tvs.getTotal_pages());
 			pagination.setCurrentPageIndex(0);
-			pagination.setPageFactory(new Callback<Integer, Node>() {
-				@Override
-				public Node call(Integer pageIndex) {
-					
-					Callable<Tvs> result = task(() -> tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));
-
-					try {
-						return createPageIndex(pageIndex, result.call());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-					return null;
+			
+			
+			Job<Callback<Integer, Node>> job = new Job<>(() -> {
+				try {
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(pageIndex,tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));				
+					return callback;
+				} catch (Exception e) {
+					HomeController.this.alertError(e);
 				}
-
+				return null;				
 			});
+			
+			job.valueProperty().addListener((obs,o,n) -> {
+				pagination.setPageFactory(n);
+			});
+			
+			new Thread(job).start();
+			
 		}
 
 	}
@@ -118,11 +120,11 @@ public class HomeController extends BaseController implements CallbackController
 
 		if (tmdb instanceof Movies movies) {
 			movies.getResults().forEach(movie -> {
-				task(navigationService.loadView(Url.CARD_MOVIE,movie)::navigate, flowPane.getChildren()::add);
+				task(navigationService.loadView(Url.CARD_MOVIE, movie)::navigate, flowPane.getChildren()::add);
 			});
 		} else if (tmdb instanceof Tvs tvs) {
 			tvs.getResults().forEach(tv -> {
-				task(navigationService.loadView(Url.CARD_TV,tv)::navigate,flowPane.getChildren()::add);
+				task(navigationService.loadView(Url.CARD_TV, tv)::navigate, flowPane.getChildren()::add);
 			});
 		}
 

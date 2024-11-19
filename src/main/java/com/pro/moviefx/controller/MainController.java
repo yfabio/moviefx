@@ -76,7 +76,7 @@ public class MainController extends BaseController {
 		
 		task(() -> movieService.getMovies(MovieApi.POPULAR), movies -> {			
 			navgiation.set(navigationService.loadView(Url.HOME,movies));
-		});
+		},this::alertError);
 		
 
 		btnMovies.setOnMouseEntered(evt -> onShowContextMenu(evt));
@@ -132,7 +132,7 @@ public class MainController extends BaseController {
 				public void handle(ActionEvent event) {
 					task(() -> movieService.getMovies(value),movies -> {
 						navgiation.set(navigationService.loadView(Url.HOME, movies));						
-					});										
+					},MainController.this::alertError);										
 				}
 			});
 		});
@@ -155,7 +155,7 @@ public class MainController extends BaseController {
 				public void handle(ActionEvent event) {
 					task(() -> tvService.getTvs(value), tvs -> {
 						navgiation.set(navigationService.loadView(Url.HOME, tvs));
-					});					
+					},MainController.this::alertError);					
 				}
 			});
 		});

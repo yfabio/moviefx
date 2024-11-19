@@ -17,9 +17,11 @@ public class TvServiceImpl implements TvService {
 	
 	@Override
 	public Tvs getTvs(TvApi tvApi) {
+		
 		String json = Http.get(String.format("%s%s", BASE_URL, tvApi.name().toLowerCase()), BodyHandlers.ofString());
 
-		Tvs tvs = gson.fromJson(json, Tvs.class);
+		Tvs tvs = gson.fromJson(json, Tvs.class);		
+		wasRequestSuccessfull(tvs);
 		tvs.setTvApi(tvApi);
 
 		return tvs;
@@ -32,6 +34,7 @@ public class TvServiceImpl implements TvService {
 				BodyHandlers.ofString());
 
 		Tvs tvs = gson.fromJson(json, Tvs.class);
+		wasRequestSuccessfull(tvs);
 
 		return tvs;
 	}
@@ -40,6 +43,7 @@ public class TvServiceImpl implements TvService {
 	public Tv getTvById(Long id) {
 		String json = Http.get(String.format("%s%d",BASE_URL,id),BodyHandlers.ofString());
 		Tv tv = gson.fromJson(json,Tv.class);
+		wasRequestSuccessfull(tv);
 		return tv;		
 	}
 

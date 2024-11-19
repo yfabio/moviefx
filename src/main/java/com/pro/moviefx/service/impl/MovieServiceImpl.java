@@ -12,17 +12,17 @@ import com.pro.moviefx.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 
 	private static final String BASE_URL = "https://api.themoviedb.org/3/movie/"; 
-												 
-		
+			 		
 	private Gson gson = new Gson();
-	
-		
+			
 	@Override
 	public Movies getMovies(MovieApi movieApi) {
 		
 		String json = Http.get(String.format("%s%s",BASE_URL,movieApi.name().toLowerCase()), BodyHandlers.ofString());
-		
+				
 		Movies movies = gson.fromJson(json, Movies.class);
+		wasRequestSuccessfull(movies);
+										
 		movies.setMovieApi(movieApi);
 		
 		return movies;	
@@ -35,31 +35,17 @@ public class MovieServiceImpl implements MovieService {
 		String json = Http.get(String.format("%s%s?page=%d",BASE_URL,movieApi.name().toLowerCase(),pageIndex), BodyHandlers.ofString());
 		
 		Movies movies = gson.fromJson(json, Movies.class);
+		wasRequestSuccessfull(movies);
 				
 		return movies;	
 	}
-
 
 	@Override
 	public Movie getMovieById(Long id) {
 		String json = Http.get(String.format("%s%d",BASE_URL,id),BodyHandlers.ofString());
 		Movie movie = gson.fromJson(json,Movie.class);
+		wasRequestSuccessfull(movie);
 		return movie;
 	}
-	
-
-	
-
-
-	
-
-
-
-
-	
-
-	
-	
-	
 	
 }

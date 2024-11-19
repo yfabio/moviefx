@@ -4,7 +4,7 @@ import com.pro.moviefx.api.TvApi;
 import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.model.Tv;
 
-public interface TvService {
+public interface TvService extends TmdbService {
 		
 	Tvs getTvs(TvApi movieApi);
 	

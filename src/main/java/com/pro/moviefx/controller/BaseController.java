@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -15,6 +14,8 @@ import com.pro.moviefx.task.Job;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class BaseController implements Initializable {
@@ -36,6 +37,21 @@ public class BaseController implements Initializable {
 	public void setStage(Stage stage) {
 		set.add(stage);
 	}
+	
+	protected void alertError(Throwable error) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("");
+		alert.setContentText(error.getMessage());
+		alert.showAndWait();
+	}
+		
+	protected <T> Job<T> task(Supplier<T> provider, Consumer<T> succeeded,Consumer<Throwable> error) {
+		Job<T> job = new Job<T>(provider, succeeded,error);
+		Thread worker = new Thread(job);
+		worker.start();
+		return job;
+	}
 
 	protected <T> Job<T> task(Supplier<T> provider, Consumer<T> succeeded) {
 		Job<T> job = new Job<T>(provider, succeeded);
@@ -43,13 +59,14 @@ public class BaseController implements Initializable {
 		worker.start();
 		return job;
 	}
-
-	protected <T> Callable<T> task(Supplier<T> provider) {
+		
+	protected <T> Job<T> task(Supplier<T> provider) {
 		Job<T> job = new Job<T>(provider);
-		Thread worker = new Thread(job);
-		Callable<T> result = () -> job.get();
+		Thread worker = new Thread(job);	
 		worker.start();
-		return result;
+		return job;
 	}
-
+	
+	
+	
 }

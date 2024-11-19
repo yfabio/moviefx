@@ -9,6 +9,13 @@ public class Job<T> extends Task<T> {
 	
 	private Supplier<T> provider;
 	private Consumer<T> succeeded;
+	private Consumer<Throwable> error;
+	
+	public Job(Supplier<T> provider, Consumer<T> succeeded, Consumer<Throwable> error) {
+		this.provider = provider;
+		this.succeeded = succeeded;
+		this.error = error;
+	}
 
 	public Job(Supplier<T> provider, Consumer<T> succeeded) {
 		this.provider = provider;
@@ -28,6 +35,13 @@ public class Job<T> extends Task<T> {
 	protected void succeeded() {
 		if (succeeded != null) {
 			succeeded.accept(getValue());
+		}
+	}
+
+	@Override
+	protected void failed() {
+		if(error!=null) {
+			error.accept(getException());
 		}
 	}
 

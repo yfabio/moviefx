@@ -4,7 +4,7 @@ import com.pro.moviefx.api.MovieApi;
 import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.model.Movie;
 
-public interface MovieService {
+public interface MovieService extends TmdbService {
 	
 	Movies getMovies(MovieApi movieApi);
 	
