@@ -67,7 +67,7 @@ public class HomeController extends BaseController implements CallbackController
 			
 			Job<Callback<Integer, Node>> job = new Job<>(() -> {
 				try {
-					Callback<Integer, Node> callback = pageIndex -> createPageIndex(pageIndex,movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));				
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));				
 					return callback;
 				} catch (Exception e) {
 					HomeController.this.alertError(e);
@@ -89,7 +89,7 @@ public class HomeController extends BaseController implements CallbackController
 			
 			Job<Callback<Integer, Node>> job = new Job<>(() -> {
 				try {
-					Callback<Integer, Node> callback = pageIndex -> createPageIndex(pageIndex,tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));				
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));				
 					return callback;
 				} catch (Exception e) {
 					HomeController.this.alertError(e);
@@ -107,7 +107,7 @@ public class HomeController extends BaseController implements CallbackController
 
 	}
 
-	private Node createPageIndex(Integer pageIndex, Tmdb tmdb) {
+	private Node createPageIndex(Tmdb tmdb) {
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setFitToHeight(true);
 		scrollPane.setFitToWidth(true);
