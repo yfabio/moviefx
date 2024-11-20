@@ -3,8 +3,10 @@ package com.pro.moviefx.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.pro.moviefx.api.MovieApi;
 import com.pro.moviefx.api.Movies;
 import com.pro.moviefx.api.Tmdb;
+import com.pro.moviefx.api.TvApi;
 import com.pro.moviefx.api.Tvs;
 import com.pro.moviefx.fx.CallbackController;
 import com.pro.moviefx.fx.Url;
@@ -14,7 +16,6 @@ import com.pro.moviefx.service.TvService;
 import com.pro.moviefx.service.impl.MovieServiceImpl;
 import com.pro.moviefx.service.impl.NavigationServiceImpl;
 import com.pro.moviefx.service.impl.TvServiceImpl;
-import com.pro.moviefx.task.Job;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -42,7 +43,7 @@ public class HomeController extends BaseController implements CallbackController
 
 	@FXML
 	private Accordion accordionFilter;
-	
+
 	@FXML
 	private ComboBox<String> sortComboBox;
 
@@ -56,14 +57,48 @@ public class HomeController extends BaseController implements CallbackController
 	public void initialize(URL location, ResourceBundle resources) {
 
 		accordionFilter.setExpandedPane(titlePaneFilter);
-		sortComboBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n) -> {
-			
+		sortComboBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> {
+
+			String[] values = getContextMenuSelectionValue().split(",");
+			pagination.setCurrentPageIndex(0);
+
+			switch (values[0]) {
+				case "movies" -> {
+	
+					task(() -> {
+						try {
+							Callback<Integer, Node> callback = pageIndex -> createPageIndex(movieService.getMoviesSortedBy(
+									MovieApi.valueOf(values[1]).getValue(n), pageIndex == 0 ? 1 : pageIndex));
+							return callback;
+						} catch (Exception e) {
+							HomeController.this.alertError(e);
+						}
+						return null;
+					}, pagination::setPageFactory);
+	
+				}
+				case "tvs" -> {
+	
+					task(() -> {
+						try {
+							Callback<Integer, Node> callback = pageIndex -> createPageIndex(tvService
+									.getTvsSortedBy(TvApi.valueOf(values[1]).getValue(n), pageIndex == 0 ? 1 : pageIndex));
+							return callback;
+						} catch (Exception e) {
+							HomeController.this.alertError(e);
+						}
+						return null;
+					}, pagination::setPageFactory);
+	
+				}
+			}
+
 		});
 	}
 
 	@Override
 	public void accept(Tmdb tmdb) {
-		createPage(tmdb);		
+		createPage(tmdb);
 	}
 
 	private void createPage(Tmdb tmdb) {
@@ -71,45 +106,36 @@ public class HomeController extends BaseController implements CallbackController
 		if (tmdb instanceof Movies movies) {
 			pagination.setPageCount(movies.getTotal_pages());
 			pagination.setCurrentPageIndex(0);
-			
-			Job<Callback<Integer, Node>> job = new Job<>(() -> {
+
+			setContextMenuSelectionValue(String.format("movies,%s", movies.getMovieApi().name()));
+
+			task(() -> {
 				try {
-					Callback<Integer, Node> callback = pageIndex -> createPageIndex(movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));				
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(
+							movieService.getMovies(movies.getMovieApi(), pageIndex == 0 ? 1 : pageIndex));
 					return callback;
 				} catch (Exception e) {
 					HomeController.this.alertError(e);
 				}
 				return null;
-			});
-			
-			job.valueProperty().addListener((obs,o,n) -> {
-				pagination.setPageFactory(n);
-			});
-			
-			new Thread(job).start();
-			
-			
+			}, pagination::setPageFactory);
+
 		} else if (tmdb instanceof Tvs tvs) {
 			pagination.setPageCount(tvs.getTotal_pages());
 			pagination.setCurrentPageIndex(0);
-			
-			
-			Job<Callback<Integer, Node>> job = new Job<>(() -> {
+
+			setContextMenuSelectionValue(String.format("tvs,%s", tvs.getTvApi().name()));
+
+			task(() -> {
 				try {
-					Callback<Integer, Node> callback = pageIndex -> createPageIndex(tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));				
+					Callback<Integer, Node> callback = pageIndex -> createPageIndex(
+							tvService.getTvs(tvs.getTvApi(), pageIndex == 0 ? 1 : pageIndex));
 					return callback;
 				} catch (Exception e) {
 					HomeController.this.alertError(e);
 				}
-				return null;				
-			});
-			
-			job.valueProperty().addListener((obs,o,n) -> {
-				pagination.setPageFactory(n);
-			});
-			
-			new Thread(job).start();
-			
+				return null;
+			}, pagination::setPageFactory);
 		}
 
 	}

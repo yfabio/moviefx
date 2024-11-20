@@ -12,6 +12,7 @@ import com.pro.moviefx.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 
 	private static final String BASE_URL = "https://api.themoviedb.org/3/movie/"; 
+	private static final String SEARCH_BASE_URL = "https://api.themoviedb.org/3/discover/movie"; 
 			 		
 	private Gson gson = new Gson();
 			
@@ -46,6 +47,15 @@ public class MovieServiceImpl implements MovieService {
 		Movie movie = gson.fromJson(json,Movie.class);
 		wasRequestSuccessfull(movie);
 		return movie;
+	}
+
+
+	@Override
+	public Movies getMoviesSortedBy(String sortBy,Integer pageIndex) {
+		String json = Http.get(String.format("%s?page=%d&sort_by=%s",SEARCH_BASE_URL,pageIndex,sortBy), BodyHandlers.ofString());	
+		Movies movies = gson.fromJson(json, Movies.class);
+		wasRequestSuccessfull(movies);
+		return movies;
 	}
 	
 }

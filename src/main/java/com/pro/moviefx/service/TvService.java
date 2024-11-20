@@ -11,5 +11,8 @@ public interface TvService extends TmdbService {
 	Tvs getTvs(TvApi movieApi,Integer pageIndex); 
 	
 	Tv getTvById(Long id);
+
+	Tvs getTvsSortedBy(String sortBy, int pageIndex);
+	
 	
 }

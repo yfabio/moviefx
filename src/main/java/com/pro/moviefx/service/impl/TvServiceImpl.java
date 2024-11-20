@@ -12,6 +12,7 @@ import com.pro.moviefx.service.TvService;
 public class TvServiceImpl implements TvService {
 
 	private static final String BASE_URL = "https://api.themoviedb.org/3/tv/";
+	private static final String SEARCH_BASE_URL = "https://api.themoviedb.org/3/discover/tv"; 
 
 	private Gson gson = new Gson();
 	
@@ -45,6 +46,14 @@ public class TvServiceImpl implements TvService {
 		Tv tv = gson.fromJson(json,Tv.class);
 		wasRequestSuccessfull(tv);
 		return tv;		
+	}
+
+	@Override
+	public Tvs getTvsSortedBy(String sortBy, int pageIndex) {
+		String json = Http.get(String.format("%s?page=%d&sort_by=%s",SEARCH_BASE_URL,pageIndex,sortBy), BodyHandlers.ofString());	
+		Tvs tvs = gson.fromJson(json, Tvs.class);
+		wasRequestSuccessfull(tvs);
+		return tvs;
 	}
 
 }

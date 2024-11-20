@@ -24,6 +24,8 @@ public class BaseController implements Initializable {
 
 	private static Set<Stage> set = new HashSet<>();
 	
+	private static Set<String> contextMenuSelection = new HashSet<>();
+	
 	protected NumberFormat nf = NumberFormat.getPercentInstance();
 
 	@Override
@@ -37,6 +39,16 @@ public class BaseController implements Initializable {
 	public void setStage(Stage stage) {
 		set.add(stage);
 	}
+	
+	public String getContextMenuSelectionValue() {		
+		return contextMenuSelection.iterator().next();
+	}
+	
+	public void setContextMenuSelectionValue(String value) {
+		contextMenuSelection.clear();
+		contextMenuSelection.add(value);
+	}
+	
 	
 	protected void alertError(Throwable error) {
 		Alert alert = new Alert(AlertType.ERROR);

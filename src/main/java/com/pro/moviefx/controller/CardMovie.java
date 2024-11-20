@@ -62,8 +62,14 @@ public class CardMovie extends BaseController implements CallbackController<Movi
 			task(() -> new Image("https://image.tmdb.org/t/p/w300/".concat(value.getPoster_path())),
 					cardImage::setImage);
 			
-			String percentageVote = nf.format(value.getVote_average() * 100 / 1000);
-					
+			String percentageVote = "";
+			
+			if(value.getVote_average() != null) {
+				percentageVote = nf.format(value.getVote_average() * 100 / 1000);				
+			}else {
+				percentageVote = nf.format(0);
+			}
+								
 			double percentageVoteValue = Double.parseDouble(percentageVote.replace("%", ""));
 
 			double percentLength = 360 * percentageVoteValue / 100;

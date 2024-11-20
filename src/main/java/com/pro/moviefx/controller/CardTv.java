@@ -21,13 +21,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 
-
-
-public class CardTv extends BaseController  implements CallbackController<Tv> {
+public class CardTv extends BaseController implements CallbackController<Tv> {
 
 	@FXML
 	private ImageView cardImage;
-	
+
 	@FXML
 	private Circle movieCircle;
 
@@ -43,67 +41,71 @@ public class CardTv extends BaseController  implements CallbackController<Tv> {
 	@FXML
 	private Label cardPercentText;
 
-	@FXML 
+	@FXML
 	private VBox card;
-	
-	
+
 	private NavigationService navigationService = new NavigationServiceImpl();
-	
+
 	private TvService tvService = new TvServiceImpl();
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-			
+
 	}
 
 	@Override
-	public void accept(Tv value) {	
+	public void accept(Tv value) {
 		try {
-			
+
 			card.setOnMouseClicked(evt -> onMovieSelected(value.getId()));
-			
-			task(() -> new Image("https://image.tmdb.org/t/p/w300/".concat(value.getPoster_path())),cardImage::setImage);
-			
-			
-			String percentageVote = nf.format(value.getVote_average() * 100 / 1000);
-			
+
+			task(() -> new Image("https://image.tmdb.org/t/p/w300/".concat(value.getPoster_path())),
+					cardImage::setImage);
+
+			String percentageVote = "";
+
+			if (value.getVote_average() != null) {
+				percentageVote = nf.format(value.getVote_average() * 100 / 1000);
+			} else {
+				percentageVote = nf.format(0);
+			}
+
 			double percentageVoteValue = Double.parseDouble(percentageVote.replace("%", ""));
 
 			double percentLength = 360 * percentageVoteValue / 100;
-			
+
 			movieCircle.setStroke(Color.TRANSPARENT);
 			moviePercent.setStroke(Color.TRANSPARENT);
-									
-			if(percentageVoteValue >= 70) {				
+
+			if (percentageVoteValue >= 70) {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.green")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.green")));
-			}else if(percentageVoteValue > 45 && percentageVoteValue <= 69) {
+			} else if (percentageVoteValue > 45 && percentageVoteValue <= 69) {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.yellow")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.yellow")));
-			}else {
+			} else {
 				movieCircle.setStroke(Color.valueOf(Resource.getValue("circle.behind.red")));
 				moviePercent.setStroke(Color.valueOf(Resource.getValue("circle.over.red")));
 			}
-								
+
 			moviePercent.setLength(percentLength);
 			cardName.setText(value.getOriginal_name());
 			cardDate.setText(value.getFirst_air_date());
-						
+
 			cardPercentText.setText(percentageVote);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-				
+
 	}
 
-	private void onMovieSelected(Long id) {		
-		
+	private void onMovieSelected(Long id) {
+
 		task(() -> tvService.getTvById(id), tv -> {
-			navgiation.set(navigationService.loadView(Url.TV,tv));	
-		});			
-			
+			navgiation.set(navigationService.loadView(Url.TV, tv));
+		});
+
 	}
-	
 
 }

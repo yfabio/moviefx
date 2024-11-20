@@ -11,5 +11,7 @@ public interface MovieService extends TmdbService {
 	public Movies getMovies(MovieApi movieApi,Integer pageIndex);
 	
 	Movie getMovieById(Long id);
+
+	Movies getMoviesSortedBy(String sortBy, Integer pageIndex);
 	
 }
