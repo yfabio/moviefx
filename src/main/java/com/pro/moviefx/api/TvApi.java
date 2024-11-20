@@ -1,6 +1,6 @@
 package com.pro.moviefx.api;
 
-public enum TvApi {
+public enum TvApi implements SortBy {
 	
 	POPULAR("Popular"),
 	AIRING_TODAY("Airing today"),

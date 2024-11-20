@@ -1,6 +1,6 @@
 package com.pro.moviefx.api;
 
-public enum MovieApi {	
+public enum MovieApi implements SortBy {	
 	
 	POPULAR("Popular"),
 	NOW_PLAYING("Now playing"),

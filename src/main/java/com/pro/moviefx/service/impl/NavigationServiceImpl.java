@@ -7,7 +7,6 @@ import com.pro.moviefx.service.NavigationService;
 
 import javafx.stage.Stage;
 
-
 public class NavigationServiceImpl implements NavigationService {
 
 	private FxLoader fxLoader = new FxLoader();
@@ -21,12 +20,10 @@ public class NavigationServiceImpl implements NavigationService {
 	public <T> Navigator loadView(Url url, T obj) {
 		return fxLoader.load(url,obj);
 	}
-
+		
 	@Override
 	public <T> Navigator loadView(Url url) {
 		return fxLoader.load(url,null);
-	}
-	
-	
+	}	
 	
 }

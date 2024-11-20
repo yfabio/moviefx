@@ -22,6 +22,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
@@ -41,6 +42,9 @@ public class HomeController extends BaseController implements CallbackController
 
 	@FXML
 	private Accordion accordionFilter;
+	
+	@FXML
+	private ComboBox<String> sortComboBox;
 
 	private NavigationService navigationService = new NavigationServiceImpl();
 
@@ -52,11 +56,14 @@ public class HomeController extends BaseController implements CallbackController
 	public void initialize(URL location, ResourceBundle resources) {
 
 		accordionFilter.setExpandedPane(titlePaneFilter);
+		sortComboBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n) -> {
+			
+		});
 	}
 
 	@Override
 	public void accept(Tmdb tmdb) {
-		createPage(tmdb);
+		createPage(tmdb);		
 	}
 
 	private void createPage(Tmdb tmdb) {
