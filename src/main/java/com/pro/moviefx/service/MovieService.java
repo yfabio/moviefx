@@ -8,7 +8,7 @@ public interface MovieService extends TmdbService {
 	
 	Movies getMovies(MovieApi movieApi);
 	
-	public Movies getMovies(MovieApi movieApi,Integer pageIndex);
+	Movies getMovies(MovieApi movieApi,Integer pageIndex);
 	
 	Movie getMovieById(Long id);
 

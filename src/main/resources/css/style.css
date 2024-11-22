@@ -230,6 +230,24 @@
 }
 
 
+.pagination > .pagination-control > .control-box > .number-button {
+	-fx-background-color: #fff;
+	-fx-text-fill: -fx-primary;	
+}
+
+
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+	-fx-background-color: #fff;	
+}
+
+.pagination > .pagination-control > .control-box > .number-button:hover {
+	-fx-background-color: #01b4e4;
+	-fx-text-fill: #fff;	
+}
+
+
+
 /* MOVIE SECTION */
 
 .movie-menu {
