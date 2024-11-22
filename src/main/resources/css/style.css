@@ -235,6 +235,11 @@
 	-fx-text-fill: -fx-primary;	
 }
 
+.pagination > .pagination-control > .control-box > .number-button:selected {
+	-fx-background-color: #01b4e4;
+	-fx-text-fill: #fff;	
+}
+
 
 .pagination > .pagination-control > .control-box > .left-arrow-button,
 .pagination > .pagination-control > .control-box > .right-arrow-button {
